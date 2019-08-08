@@ -23,6 +23,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Game extends ApplicationAdapter {
 
     private SpriteBatch batch;
+    private Goomba goomba;
+    private Texture spritesheet;
     private Texture[] mapLevelsTextures;
     
     /**
@@ -36,7 +38,11 @@ public class Game extends ApplicationAdapter {
         batch = new SpriteBatch();
         mapLevelsTextures = new Texture[2];
         mapLevelsTextures[0] = new Texture("map-level-1.png");
-
+        mapLevelsTextures[1] = new Texture("map-level-2.png");
+        
+        spritesheet = new Texture("goomba-spritesheet.png");
+        
+        goomba = new Goomba(spritesheet);
         
         // cor de fundo da tela: branco
         Gdx.gl.glClearColor(1, 1, 1, 1);        
@@ -72,6 +78,8 @@ public class Game extends ApplicationAdapter {
         batch.begin();        
             // desenhos são realizados aqui
             batch.draw(mapLevelsTextures[0], 0, 0);
+            goomba.render(batch);
+            batch.draw(mapLevelsTextures[1], 0, 0);
 
         batch.end();
     }
@@ -90,6 +98,7 @@ public class Game extends ApplicationAdapter {
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             Gdx.app.exit();
         }
+        goomba.update();
 
         // ...
     }
